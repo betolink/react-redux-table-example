@@ -1,4 +1,4 @@
-import keymirror from 'keymirror'
+import keymirror from 'keymirror';
 
 export default {
   // nutrient ids from SR28 docs
@@ -16,4 +16,4 @@ export default {
     SET_ERROR_MESSAGE: null,
     RESET_ERROR_MESSAGE: null
   })
-}
+};

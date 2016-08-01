@@ -1,15 +1,15 @@
-import fetch from 'isomorphic-fetch'
-import { ACTIONS } from '../constants'
+import fetch from 'isomorphic-fetch';
+import { ACTIONS } from '../constants';
+
+function formatErrorMessage (res) {
+  return `[${res.status}]: ${res.statusText} (${res.url})`;
+}
 
 function handleResponse (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response.json()
+    return response.json();
   }
-  throw new Error(formatErrorMessage(response))
-}
-
-function formatErrorMessage (res) {
-  return `[${res.status}]: ${res.statusText} (${res.url})`
+  throw new Error(formatErrorMessage(response));
 }
 
 // Error action that is dispatched on failed fetch requests
@@ -18,7 +18,7 @@ function errorAction (error) {
     type: ACTIONS.SET_ERROR_MESSAGE,
     error: true,
     errorMessage: error.message
-  }
+  };
 }
 
 // Generic fetchDispatch utility that dispatches 3 actions:
@@ -37,13 +37,13 @@ function errorAction (error) {
 //  }
 export default function fetchDispatch (opts) {
   return (dispatch) => {
-    dispatch({ type: opts.types.request })
-
+    dispatch({ type: opts.types.request });
+    // Dispatch the recevied action with type and data
     return fetch(opts.url, { headers: opts.headers || {} })
       .then(handleResponse)
-      .then((data) => { // Dispatch the recevied action with type and data
-        const obj = opts.onReceived ? opts.onReceived(data) : { data }
-        return dispatch(Object.assign({ type: opts.types.receive }, obj))
-      }).catch((error) => dispatch(errorAction(error)))
-  }
+      .then((data) => {
+        const obj = opts.onReceived ? opts.onReceived(data) : { data };
+        return dispatch(Object.assign({ type: opts.types.receive }, obj));
+      }).catch((error) => dispatch(errorAction(error)));
+  };
 }

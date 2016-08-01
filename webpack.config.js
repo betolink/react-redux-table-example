@@ -1,15 +1,16 @@
-var path = require('path')
-var webpack = require('webpack')
-var autoprefixer = require('autoprefixer')
-var embedFileSize = 65536
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const embedFileSize = 65536;
 
-var output = {
+const output = {
   path: path.join(__dirname, 'build'),
   filename: 'app.js',
   publicPath: '/'
-}
+};
 
-var assetsLoaders = [
+const assetsLoaders = [
   {test: /\.css$/, loader: 'style!css!postcss'},
   {test: /\.styl$/, loader: 'style!css!postcss!stylus'},
   {test: /\.json$/, loader: 'json'},
@@ -25,20 +26,20 @@ var assetsLoaders = [
     test: /\.(otf|eot|ttf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'url?limit=' + embedFileSize
   }
-]
+];
 
-var lintLoader = {
+const lintLoader = {
   test: /\.jsx?$/,
   exclude: /node_modules/,
   loader: 'eslint'
-}
+};
 
-var plugins = [
+const plugins = [
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.optimize.DedupePlugin()
-]
+];
 
-var babelLoader = {
+const babelLoader = {
   loader: 'babel-loader',
   include: [
     path.resolve(__dirname, 'src')
@@ -50,9 +51,9 @@ var babelLoader = {
     plugins: ['transform-runtime', 'babel-plugin-add-module-exports'],
     presets: ['es2015', 'stage-0', 'react']
   }
-}
+};
 
-var commonConfig = {
+const commonConfig = {
   output: output,
 
   standard: {
@@ -69,9 +70,9 @@ var commonConfig = {
     chunkModules: false,
     colors: true
   }
-}
+};
 
-var production = Object.assign({
+const production = Object.assign({
   devtool: 'eval',
   entry: [
     './src/app'
@@ -93,9 +94,9 @@ var production = Object.assign({
       assetsLoaders, babelLoader
     )
   }
-}, commonConfig)
+}, commonConfig);
 
-var development = Object.assign({
+const development = Object.assign({
   port: 3000,
   devtool: 'inline-source-map',
   debug: true,
@@ -106,7 +107,8 @@ var development = Object.assign({
   ],
 
   plugins: plugins.concat([
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ProgressBarPlugin({ clear: false })
   ]),
 
   module: {
@@ -119,7 +121,7 @@ var development = Object.assign({
     ),
     preLoaders: [].concat(lintLoader)
   }
-}, commonConfig)
+}, commonConfig);
 
-module.exports = production
-module.exports.development = development
+module.exports = production;
+module.exports.development = development;

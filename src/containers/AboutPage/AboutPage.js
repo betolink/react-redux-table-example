@@ -1,5 +1,5 @@
-import './AboutPage.styl'
-import React from 'react'
+import './AboutPage.styl';
+import React from 'react';
 
 const AboutPage = () => {
   return (
@@ -27,7 +27,7 @@ const AboutPage = () => {
         </a>
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default AboutPage
+export default AboutPage;

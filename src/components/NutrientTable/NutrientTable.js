@@ -1,11 +1,11 @@
-import React from 'react'
-import { Column, Cell } from 'fixed-data-table'
-import ResponsiveTableWrapper from '../ResponsiveTableWrapper'
-import renderers from '../../modules/renderers'
+import React from 'react';
+import { Column, Cell } from 'fixed-data-table';
+import ResponsiveTableWrapper from '../ResponsiveTableWrapper';
+import renderers from '../../modules/renderers';
 
 // Stateless cell components for Table component
 function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey, ...props}) {
-  const clickFunc = () => sortBy(columnKey)
+  const clickFunc = () => sortBy(columnKey);
 
   return (
     <Cell {...props}>
@@ -13,7 +13,7 @@ function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey, ...pro
         {children} {renderers.renderSortArrow(sortKey, sortDesc, columnKey)}
       </a>
     </Cell>
-  )
+  );
 }
 
 SortHeaderCell.propTypes = {
@@ -22,66 +22,75 @@ SortHeaderCell.propTypes = {
   sortDesc: React.PropTypes.bool.isRequired,
   columnKey: React.PropTypes.string,
   children: React.PropTypes.any
-}
+};
 
 function DataCell ({data, rowIndex, columnKey, ...props}) {
-  return <Cell {...props}> {data[rowIndex][columnKey]} </Cell>
+  return <Cell {...props}> {data[rowIndex][columnKey]} </Cell>;
 }
 
 DataCell.propTypes = {
   data: React.PropTypes.array.isRequired,
   rowIndex: React.PropTypes.number,
   columnKey: React.PropTypes.string
-}
+};
 
 class NutrientTable extends React.Component {
+
+  componentWillReceiveProps (nextProps) {
+    console.log(nextProps.params.filter);
+    if (nextProps.params.filter) {
+      this.props.filterBy(nextProps.params.filter);
+    }
+  }
+
   componentWillMount () {
-    this.props.fetchData()
+    console.log('Fetching data');
+    this.props.fetchData();
   }
 
   handleFilterStringChange (e) {
-    e.preventDefault()
-    this.props.filterBy(e.target.value)
+    e.preventDefault();
+    this.props.filterBy(e.target.value);
   }
 
   handleSortClick (label, key) {
-    const sortFunc = () => this.props.sortBy(key)
-    return <a onClick={sortFunc}>{label}</a>
+    const sortFunc = () => this.props.sortBy(key);
+    return <a onClick={sortFunc}>{label}</a>;
   }
 
   doesMatch (str) {
-    return (key) => (key + '').toLowerCase().indexOf(str) !== -1
+    return (key) => (key + '').toLowerCase().indexOf(str) !== -1;
   }
 
   filterData () {
-    const {data, filterString} = this.props
-    const str = filterString.toLowerCase()
+    const {data, filterString} = this.props;
+    const str = filterString.toLowerCase();
     return str !== ''
       ? data.filter((r) => Object.values(r).some(this.doesMatch(str)))
-      : data
+      : data;
   }
 
   sortData () {
-    const {data, sortKey, sortDesc} = this.props
-    const multiplier = sortDesc ? -1 : 1
+    const {data, sortKey, sortDesc} = this.props;
+    const multiplier = sortDesc ? -1 : 1;
     data.sort((a, b) => {
-      const aVal = a[sortKey] || 0
-      const bVal = b[sortKey] || 0
-      return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0)
-    })
-    return this
+      const aVal = a[sortKey] || 0;
+      const bVal = b[sortKey] || 0;
+      return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
+    });
+    return this;
   }
 
   render () {
-    const { isFetching, filterString, sortBy, sortKey, sortDesc } = this.props
-    const headerCellProps = { sortBy, sortKey, sortDesc }
+    const { isFetching, filterString, sortBy, sortKey, sortDesc } = this.props;
+    const headerCellProps = { sortBy, sortKey, sortDesc };
 
-    const data = this.sortData().filterData()
+    const data = this.sortData().filterData();
 
     return (
       <div>
         <input className='filter-input' value={filterString}
-          onChange={::this.handleFilterStringChange}
+          onChange={this.handleFilterStringChange.bind(this)}
           type='text' placeholder='Filter Rows'
           autoCorrect='off' autoCapitalize='off' spellCheck='false' />
         <br />
@@ -121,7 +130,7 @@ class NutrientTable extends React.Component {
             width={100} />
         </ResponsiveTableWrapper>
       </div>
-    )
+    );
   }
 }
 
@@ -136,7 +145,8 @@ NutrientTable.propTypes = {
   filterString: React.PropTypes.string.isRequired,
   sortKey: React.PropTypes.string.isRequired,
   sortDesc: React.PropTypes.bool.isRequired,
-  isFetching: React.PropTypes.bool.isRequired
-}
+  isFetching: React.PropTypes.bool.isRequired,
+  params: React.PropTypes.object.isRequired
+};
 
-export default NutrientTable
+export default NutrientTable;

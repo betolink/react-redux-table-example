@@ -1,13 +1,16 @@
-import foodNutrients from '../testdata/foodnutrients.json'
-import { listFoodWithNutrients } from '../../src/reducers/tableReducer'
+import chai from 'chai';
+let expect = chai.expect;
+
+import foodNutrients from '../testdata/foodnutrients.json';
+import { listFoodWithNutrients } from '../../src/reducers/tableReducer';
 
 describe('tableReducer.listFoodWithNutrients', () => {
   it('Listify food with nutrients from nested data', () => {
-    expect(foodNutrients).to.be.an('object')
-    const result = listFoodWithNutrients(foodNutrients)
+    expect(foodNutrients).to.be.an('object');
+    const result = listFoodWithNutrients(foodNutrients);
     expect(result)
       .to.be.an('array')
-      .to.have.length.above(35)
+      .to.have.length.above(35);
 
     result.forEach((row) => {
       expect(row).to.have.all.keys([
@@ -17,7 +20,7 @@ describe('tableReducer.listFoodWithNutrients', () => {
         'unit',
         'value',
         'gm'
-      ])
-    })
-  })
-})
+      ]);
+    });
+  });
+});
