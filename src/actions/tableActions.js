@@ -1,10 +1,9 @@
 import CONSTS from '../constants';
 import fetchDispatch from './fetchUtils';
 
-const nutrientSep = '&nutrients=';
+
 const apiProps = {
-  url: CONSTS.USDA_NUTRIENTS_URL_WITH_APIKEY +
-    nutrientSep + CONSTS.NUTRIENTS.join(nutrientSep),
+  url: CONSTS.CMR_API_ENDPOINT,
   types: {
     request: CONSTS.ACTIONS.REQUEST_NUTRIENTS_DATA,
     receive: CONSTS.ACTIONS.RECEIVE_NUTRIENTS_DATA
@@ -15,10 +14,10 @@ function shouldFetchData ({table}) {
   return (!table.data || !table.isFetching);
 }
 
-function fetchData () {
+function fetchData (provider) {
   return (dispatch, getState) => {
     if (shouldFetchData(getState())) {
-      return dispatch(fetchDispatch(apiProps));
+      return dispatch(fetchDispatch(apiProps, provider));
     }
     return null;
   };

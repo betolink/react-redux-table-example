@@ -1,14 +1,7 @@
 import { ACTIONS } from '../constants';
 
-export function listFoodWithNutrients (data) {
-  const foods = data.report.foods;
-
-  return foods.reduce((arr, food) => {
-    food.nutrients.forEach((nutrient) => {
-      nutrient.food = food.name;
-    });
-    return arr.concat(food.nutrients);
-  }, []);
+export function listDatasets (data) {
+  return data.datasets;
 }
 
 function handleTableActions (state, action) {
@@ -18,7 +11,7 @@ function handleTableActions (state, action) {
   case ACTIONS.RECEIVE_NUTRIENTS_DATA:
     return {
       isFetching: false,
-      data: listFoodWithNutrients(action.data)
+      data: listDatasets(action.data)
     };
   case ACTIONS.FILTER_NUTRIENTS_DATA:
     return { filterString: action.filterString.toLowerCase() };

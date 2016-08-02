@@ -7,13 +7,22 @@ export default () => {
     <nav role='navigation'>
       <ul>
         <li>
-          <Link to='/nutrients/acerola'>Nutrients: Acerola</Link>
+          <Link to='/status'>STATUS</Link>
         </li>
         <li>
-          <Link to='/nutrients/stew'>Nutrients: Stew</Link>
+          <Link to='/logs'>LOGS</Link>
         </li>
         <li>
-          <Link to='/about'>About</Link>
+          <Link to='/provider/NSIDCV0TST'>NSIDC V0 UAT</Link>
+        </li>
+        <li>
+          <Link to='/provider/NSIDCV0'>NSIDC V0 PROD</Link>
+        </li>
+        <li>
+          <Link to='/provider/NSIDC_TS1'>ECS UAT</Link>
+        </li>
+        <li>
+          <Link to='/provider/NSIDC_ECS'>ECS PROD</Link>
         </li>
       </ul>
     </nav>

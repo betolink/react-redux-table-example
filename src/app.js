@@ -10,7 +10,8 @@ const initialAppState = {
     data: [],
     filterString: '',
     sortDesc: false,
-    sortKey: 'nutrient'
+    sortKey: 'dataset',
+    provider: ''
   },
   errorMessage: null
 };

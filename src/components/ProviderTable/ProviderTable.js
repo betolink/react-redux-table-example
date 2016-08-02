@@ -34,18 +34,11 @@ DataCell.propTypes = {
   columnKey: React.PropTypes.string
 };
 
-class NutrientTable extends React.Component {
-
-  componentWillReceiveProps (nextProps) {
-    console.log(nextProps.params.filter);
-    if (nextProps.params.filter) {
-      this.props.filterBy(nextProps.params.filter);
-    }
-  }
+class ProviderTable extends React.Component {
 
   componentWillMount () {
     console.log('Fetching data');
-    this.props.fetchData();
+    this.props.fetchData(this.props.params.provider);
   }
 
   handleFilterStringChange (e) {
@@ -86,6 +79,7 @@ class NutrientTable extends React.Component {
     const headerCellProps = { sortBy, sortKey, sortDesc };
 
     const data = this.sortData().filterData();
+    console.log(data);
 
     return (
       <div>
@@ -105,28 +99,28 @@ class NutrientTable extends React.Component {
           headerHeight={50}
           rowsCount={data.length}>
           <Column
-            columnKey='food'
-            header={<SortHeaderCell {...headerCellProps}> Food </SortHeaderCell>}
-            cell={<DataCell data={data} />}
-            flexGrow={3}
-            width={100} />
-          <Column
-            columnKey='nutrient'
-            header={<SortHeaderCell {...headerCellProps}> Nutrient </SortHeaderCell>}
-            cell={<DataCell data={data} />}
-            flexGrow={1}
-            width={100} />
-          <Column
-            columnKey='value'
-            header={<SortHeaderCell {...headerCellProps}> Value </SortHeaderCell>}
-            cell={<DataCell data={data} />}
-            flexGrow={0.5}
-            width={100} />
-          <Column
-            columnKey='unit'
-            header={<SortHeaderCell {...headerCellProps}> Unit </SortHeaderCell>}
+            columnKey='dataset'
+            header={<SortHeaderCell {...headerCellProps}> Dataset </SortHeaderCell>}
             cell={<DataCell data={data} />}
             flexGrow={0.1}
+            width={100} />
+          <Column
+            columnKey='title'
+            header={<SortHeaderCell {...headerCellProps}> Title </SortHeaderCell>}
+            cell={<DataCell data={data} />}
+            flexGrow={2}
+            width={100} />
+          <Column
+            columnKey='currentVersion'
+            header={<SortHeaderCell {...headerCellProps}> Version </SortHeaderCell>}
+            cell={<DataCell data={data} />}
+            flexGrow={0.1}
+            width={100} />
+          <Column
+            columnKey='lastUpdated'
+            header={<SortHeaderCell {...headerCellProps}> Last Updated </SortHeaderCell>}
+            cell={<DataCell data={data} />}
+            flexGrow={1}
             width={100} />
         </ResponsiveTableWrapper>
       </div>
@@ -134,7 +128,7 @@ class NutrientTable extends React.Component {
   }
 }
 
-NutrientTable.propTypes = {
+ProviderTable.propTypes = {
   // actions
   fetchData: React.PropTypes.func.isRequired,
   sortBy: React.PropTypes.func.isRequired,
@@ -149,4 +143,4 @@ NutrientTable.propTypes = {
   params: React.PropTypes.object.isRequired
 };
 
-export default NutrientTable;
+export default ProviderTable;

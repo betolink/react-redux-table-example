@@ -1,16 +1,16 @@
 import React from 'react' // eslint-disable-line
 import { Route, IndexRoute } from 'react-router';
 import App from './containers/App';
-import NutrientPage from './containers/NutrientPage';
-import AboutPage from './containers/AboutPage';
+import ProviderPage from './containers/ProviderPage';
+import StatusPage from './containers/StatusPage';
 import NotFoundPage from './containers/NotFoundPage';
 
 export default (
   <Route path='/' component={App}>
-    <IndexRoute component={NutrientPage} />
-    <Route path='nutrients' component={NutrientPage} />
-    <Route path='nutrients/:filter' component={NutrientPage} />
-    <Route path='about' component={AboutPage} />
+    <IndexRoute component={ProviderPage} />
+    <Route path='provider' component={ProviderPage} />
+    <Route path='provider/:provider' component={ProviderPage} />
+    <Route path='status' component={StatusPage} />
     <Route path='*' component={NotFoundPage} />
   </Route>
 );

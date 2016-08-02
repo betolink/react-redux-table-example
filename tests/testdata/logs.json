@@ -1,0 +1,59 @@
+{
+  "provider": "all",
+  "date": "2015-09-13T16:13:20.282Z",
+  "total": 23000,
+  "page": 1,
+  "items": 500,
+  "logs":
+  [
+
+    {
+      "id": "4",
+      "dataset": "NSIDC-010",
+      "provider": "NSIDCV0",
+      "date": "2015-09-13T16:13:20.282Z",
+      "transactionType": "publish",
+      "nsidcResponse": 200,
+      "nsidcErrorMessage": "",
+      "cmrResponse": 200,
+      "cmrErrorMessage": "",
+      "succes": true
+    },
+    {
+      "id": "3",
+      "dataset": "NSIDC-011",
+      "provider": "NSIDCV0",
+      "date": "2015-12-18T01:25:52.457Z",
+      "transactionType": "publish",
+      "nsidcResponse": 200,
+      "nsidcErrorMessage": "",
+      "cmrResponse": 200,
+      "cmrErrorMessage": "",
+      "succes": true
+    },
+    {
+      "id": "2",
+      "dataset": "NSIDC-012",
+      "provider": "NSIDCV0",
+      "date": "2016-05-15T19:40:42.751Z",
+      "transactionType": "publish",
+      "nsidcResponse": 200,
+      "nsidcErrorMessage": "",
+      "cmrResponse": 200,
+      "cmrErrorMessage": "",
+      "succes": true
+    },
+    {
+      "id": "1",
+      "dataset": "NSIDC-013",
+      "provider": "NSIDCV0",
+      "date": "2016-03-29T17:22:58.258Z",
+      "transactionType": "publish",
+      "nsidcResponse": 200,
+      "nsidcErrorMessage": "",
+      "cmrResponse": 200,
+      "cmrErrorMessage": "",
+      "succes": true
+    }
+  ]
+}

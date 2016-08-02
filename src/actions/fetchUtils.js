@@ -35,11 +35,15 @@ function errorAction (error) {
 //      First parameter is the json response. By default, data is return in the object
 //      Default success action: {type: opts.types.receive, data: data}
 //  }
-export default function fetchDispatch (opts) {
+export default function fetchDispatch (opts, provider) {
   return (dispatch) => {
     dispatch({ type: opts.types.request });
     // Dispatch the recevied action with type and data
-    return fetch(opts.url, { headers: opts.headers || {} })
+    let prov = provider;
+    if (typeof provider === 'undefined') {
+      prov = 'NSIDCV0TST';
+    }
+    return fetch(`${opts.url}providers/${prov}/datasets`, { headers: opts.headers || {} })
       .then(handleResponse)
       .then((data) => {
         const obj = opts.onReceived ? opts.onReceived(data) : { data };

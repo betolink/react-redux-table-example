@@ -1,0 +1,17 @@
+[
+  {
+    "service": "CMR Production",
+    "status": "online",
+    "lastChecked": "2016-02-16T14:35:18.257Z"
+  },
+  {
+    "service": "CMR UAT",
+    "status": "not responding",
+    "lastChecked": "2016-01-14T08:11:16.222Z"
+  },
+  {
+    "service": "NSIDC DCS Production",
+    "status": "online",
+    "lastChecked": "2016-03-29T14:53:12.784Z"
+  }
+]
