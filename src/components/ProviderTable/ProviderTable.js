@@ -1,7 +1,10 @@
 import React from 'react';
 import { Column, Cell } from 'fixed-data-table';
 import ResponsiveTableWrapper from '../ResponsiveTableWrapper';
+import TableHeader from './TableHeader';
+import DatasetActionButtons from './ActionButtons';
 import renderers from '../../modules/renderers';
+
 
 // Stateless cell components for Table component
 function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey, ...props}) {
@@ -26,6 +29,10 @@ SortHeaderCell.propTypes = {
 
 function DataCell ({data, rowIndex, columnKey, ...props}) {
   return <Cell {...props}> {data[rowIndex][columnKey]} </Cell>;
+}
+
+function ButtonsCell ({...props}) {
+  return <Cell {...props}> <DatasetActionButtons props={props}/> </Cell>;
 }
 
 DataCell.propTypes = {
@@ -69,7 +76,10 @@ class ProviderTable extends React.Component {
     data.sort((a, b) => {
       const aVal = a[sortKey] || 0;
       const bVal = b[sortKey] || 0;
-      return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
+      if (aVal > bVal) {
+        return multiplier;
+      }
+      return (aVal < bVal ? -multiplier : 0);
     });
     return this;
   }
@@ -79,14 +89,11 @@ class ProviderTable extends React.Component {
     const headerCellProps = { sortBy, sortKey, sortDesc };
 
     const data = this.sortData().filterData();
-    console.log(data);
 
     return (
       <div>
-        <input className='filter-input' value={filterString}
-          onChange={this.handleFilterStringChange.bind(this)}
-          type='text' placeholder='Filter Rows'
-          autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+
+       <TableHeader filterString={filterString} items={data.length} {...this.props}/>
         <br />
 
         {isFetching && data.length === 0 &&
@@ -120,8 +127,14 @@ class ProviderTable extends React.Component {
             columnKey='lastUpdated'
             header={<SortHeaderCell {...headerCellProps}> Last Updated </SortHeaderCell>}
             cell={<DataCell data={data} />}
-            flexGrow={1}
+            flexGrow={0.5}
             width={100} />
+            <Column
+              columnKey='dataset'
+              header='CMR Actions'
+              cell={<ButtonsCell data={data} />}
+              flexGrow={1}
+              width={100} />
         </ResponsiveTableWrapper>
       </div>
     );

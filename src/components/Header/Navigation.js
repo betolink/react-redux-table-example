@@ -1,30 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router';
-import './Navigation.styl';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 export default () => {
   return (
-    <nav role='navigation'>
-      <ul>
-        <li>
-          <Link to='/status'>STATUS</Link>
-        </li>
-        <li>
-          <Link to='/logs'>LOGS</Link>
-        </li>
-        <li>
-          <Link to='/provider/NSIDCV0TST'>NSIDC V0 UAT</Link>
-        </li>
-        <li>
-          <Link to='/provider/NSIDCV0'>NSIDC V0 PROD</Link>
-        </li>
-        <li>
-          <Link to='/provider/NSIDC_TS1'>ECS UAT</Link>
-        </li>
-        <li>
-          <Link to='/provider/NSIDC_ECS'>ECS PROD</Link>
-        </li>
-      </ul>
-    </nav>
+    <Navbar>
+      <Nav bsStyle='tabs' pullRight fixedTop>
+        <NavItem componentClass={Link} href='/status' to='/status'>
+          STATUS
+        </NavItem>
+        <NavItem componentClass={Link} href='/logs' to='/logs'>
+          LOGS
+        </NavItem>
+        <NavItem componentClass={Link} href='/provider/NSIDCV0TST' to='/provider/NSIDCV0TST'>
+          V0 UAT
+        </NavItem>
+        <NavItem componentClass={Link} href='/provider/NSIDCV0' to='/provider/NSIDCV0'>
+          V0 PROD
+        </NavItem>
+        <NavItem componentClass={Link} href='/provider/NSIDC_TS1' to='/provider/NSIDC_TS1'>
+          ECS UAT
+        </NavItem>
+        <NavItem componentClass={Link} href='/provider/NSIDC_ECS' to='/provider/NSIDC_ECS'>
+          ECS PROD
+        </NavItem>
+      </Nav>
+    </Navbar>
   );
 };

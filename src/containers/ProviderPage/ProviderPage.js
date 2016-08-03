@@ -7,7 +7,6 @@ import { tableActions as actions } from '../../actions';
 const ProviderPage = (props) => {
   return (
     <div>
-      <h2> Datasets </h2>
       <ProviderTable {...props} />
     </div>
   );

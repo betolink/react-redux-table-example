@@ -7,7 +7,7 @@ export default () => {
   return (
     <header>
       <strong>
-        <IndexLink to='/'> CMRMediator UI </IndexLink>
+        <IndexLink to='/'> CMR Mediator </IndexLink>
       </strong>
       <Navigation />
     </header>
